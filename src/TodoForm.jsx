@@ -10,23 +10,27 @@ const AddTodoForm = () => {
     e.preventDefault();
     if (title.trim() === "") return;
     dispatch(addTodo({ title }));
-    setTitle(""); // Clear the input field after submission
+    setTitle("")
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
+    <form onSubmit={handleSubmit} className="mb-4">
+      <div className="flex gap-5 justify-between ">
+
         <input
           type="text"
-          className="form-control"
+          className="flex-1 form-control py-3 px-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Add a new task..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
-      <button type="submit" className="btn btn-primary mt-2">
+          />
+      <button
+        type="submit"
+        className="btn btn-primary h-auto px-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+        >
         Add Todo
       </button>
+        </div>
     </form>
   );
 };
