@@ -3,6 +3,6 @@ import todoReducer from "../redux/TodoSlice";
 
 export const store = configureStore({
   reducer: {
-    todos: todoReducer, // Register the todo slice
+    todos: todoReducer, 
   },
 });

@@ -21,53 +21,55 @@ const TodoItem = ({ id, title, completed }) => {
 
     const handleSaveClick = () => {
         dispatch(editTodo({ id, title: newTitle }));
-        setIsEditing(false); 
-    };
-
-    const handleCancelClick = () => {
-        setNewTitle(title); 
         setIsEditing(false);
     };
 
-   
+    const handleCancelClick = () => {
+        setNewTitle(title);
+        setIsEditing(false);
+    };
 
     return (
-        <li className={`list-group-item ${completed && 'list-group-item-success'}`}>
-            <div className="d-flex justify-content-between">
-                <span className="d-flex align-items-center">
+        <li className={`list-group-item flex justify-between items-center p-4 ${completed ? 'bg-green-100' : 'bg-white'} border-b border-gray-300`}>
+            <div className="flex items-center space-x-3">
+                <input
+                    className="mr-3"
+                    type="checkbox"
+                    name="checkbox"
+                    onChange={handleCheckboxClick}
+                    checked={completed}
+                />
+                {isEditing ? (
                     <input
-                        className="mr-3"
-                        type="checkbox"
-                        name="checkbox"
-                        onChange={handleCheckboxClick}
-                        checked={completed}
+                        type="text"
+                        value={newTitle}
+                        onChange={(e) => setNewTitle(e.target.value)}
+                        className="form-control w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    {isEditing ? (
-                        <input
-                            type="text"
-                            value={newTitle}
-                            onChange={(e) => setNewTitle(e.target.value)}
-                            className="form-control"
-                        />
-                    ) : (
-                        title
-                    )}
-                </span>
+                ) : (
+                    <span className={`${completed ? 'line-through text-gray-500' : ''}`}>{title}</span>
+                )}
+            </div>
+            <div className="space-x-2">
                 {isEditing ? (
                     <div>
-                        <button onClick={handleSaveClick} className="btn btn-success mr-2">
+                        <button onClick={handleSaveClick} className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">
                             Save
                         </button>
-                        <button onClick={handleCancelClick} className="btn btn-secondary">
+                        <button onClick={handleCancelClick} className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
                             Cancel
                         </button>
                     </div>
                 ) : (
                     <>
-                        <button onClick={handleEditClick} className="btn btn-primary mr-2">
+                        <button
+                            onClick={handleEditClick}
+                            className={`px-4 py-2 text-white rounded-md transition ${completed ? 'bg-gray-400 cursor-not-allowed opacity-50' : 'bg-blue-500 hover:bg-blue-600'}`}
+                            disabled={completed} 
+                        >
                             Edit
                         </button>
-                        <button onClick={handleDeleteClick} className="btn btn-danger">
+                        <button onClick={handleDeleteClick} className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
                             Delete
                         </button>
                     </>
